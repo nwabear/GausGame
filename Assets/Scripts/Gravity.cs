@@ -9,9 +9,12 @@ public class Gravity : MonoBehaviour
     public float m_Thrust = 70f;
     public float grav_force = 0.0f;
     public float jump;
-    bool on_ground = false;
-    bool moving_right = false;
-    bool moving_left = false;
+    public bool on_ground = false;
+    public bool moving_right = false;
+    public bool moving_left = false;
+    public bool test_right = false;
+    public bool test_left = false;
+    public bool test_up = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +30,11 @@ public class Gravity : MonoBehaviour
             moving_left = false;
         }
 
-        if(Input.GetKey(KeyCode.RightArrow) && on_ground) {
+        if((Input.GetKey(KeyCode.RightArrow) && on_ground) || test_right) {
             moving_right = true;
         }
 
-        if(Input.GetKey(KeyCode.LeftArrow) && on_ground) {
+        if((Input.GetKey(KeyCode.LeftArrow) && on_ground) || test_left) {
             moving_left = true;
         }
 
@@ -44,7 +47,7 @@ public class Gravity : MonoBehaviour
         }
 
         m_Rigidbody.velocity = new Vector2(xVelocity, m_Rigidbody.velocity.y - 0.25f);
-        if(Input.GetKey(KeyCode.UpArrow) && on_ground) {
+        if((Input.GetKey(KeyCode.UpArrow) && on_ground) || test_up) {
             m_Rigidbody.velocity = new Vector2(xVelocity, 0.0f);
             m_Rigidbody.AddForce(jump * transform.up, ForceMode2D.Impulse);
             on_ground = false;
