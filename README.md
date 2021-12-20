@@ -1,1 +1,1 @@
-README WIP
+Gaus Game - A WIP 2d Platformer
