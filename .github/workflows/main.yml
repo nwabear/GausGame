@@ -38,6 +38,7 @@ jobs:
         with:
           unityVersion: 2020.3.22f1
           targetPlatform: StandaloneWindows64 
+          allowDirtyBuild: true
 
       # Output 
       - uses: actions/upload-artifact@v2
