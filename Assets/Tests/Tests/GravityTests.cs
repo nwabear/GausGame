@@ -93,13 +93,13 @@ public class GravityTests
 
         yield return new WaitForSeconds(1f);
 
-        Assert.IsTrue(gravity.on_ground);
+        Assert.IsTrue(gravity.onGround());
 
         gravity.test_up = true;
 
         yield return new WaitForSeconds(0.1f);
 
-        Assert.IsFalse(gravity.on_ground);
+        Assert.IsFalse(gravity.onGround());
     }
 
 }
