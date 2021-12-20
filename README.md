@@ -1,1 +1,1 @@
-Gaus Game - A WIP 2d Platformer
+Gaus Game, a 2d vertical platformer
