@@ -9,7 +9,7 @@ public class Gravity : MonoBehaviour
     public float m_Thrust = 70f;
     public float grav_force = 0.0f;
     public float jump;
-    public bool on_ground = false;
+    public int on_ground = 0;
     public bool moving_right = false;
     public bool moving_left = false;
     public bool test_right = false;
@@ -25,16 +25,16 @@ public class Gravity : MonoBehaviour
     void Update()
     {
         float xVelocity = 0.0f;
-        if(on_ground) {
+        if(onGround()) {
             moving_right = false;
             moving_left = false;
         }
 
-        if((Input.GetKey(KeyCode.RightArrow) && on_ground) || test_right) {
+        if((Input.GetKey(KeyCode.RightArrow) && onGround()) || test_right) {
             moving_right = true;
         }
 
-        if((Input.GetKey(KeyCode.LeftArrow) && on_ground) || test_left) {
+        if((Input.GetKey(KeyCode.LeftArrow) && onGround()) || test_left) {
             moving_left = true;
         }
 
@@ -47,22 +47,30 @@ public class Gravity : MonoBehaviour
         }
 
         m_Rigidbody.velocity = new Vector2(xVelocity, m_Rigidbody.velocity.y - 0.25f);
-        if((Input.GetKey(KeyCode.UpArrow) && on_ground) || test_up) {
+        if((Input.GetKey(KeyCode.UpArrow) && onGround()) || test_up) {
             m_Rigidbody.velocity = new Vector2(xVelocity, 0.0f);
             m_Rigidbody.AddForce(jump * transform.up, ForceMode2D.Impulse);
-            on_ground = false;
         }
+    }
+
+    public bool onGround() {
+        return on_ground > 0;
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "ground") {
-            on_ground = true;
+            on_ground++;
+        }
+
+        if(collision.gameObject.tag == "slope") {
+            moving_left = false;
+            moving_right = false;
         }
     }
 
     void OnCollisionExit2D(Collision2D collision) {
         if(collision.gameObject.tag == "ground") {
-            on_ground = false;
+            on_ground--;
         }
     }
 }
