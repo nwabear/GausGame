@@ -102,4 +102,16 @@ public class GravityTests
         Assert.IsFalse(gravity.onGround());
     }
 
+    [UnityTest]
+    public IEnumerator ShootTest() {
+        GameObject gameObject =
+            MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/player"));
+        gravity = gameObject.GetComponent<Gravity>();
+        gravity.Start();
+        gravity.test = true;
+        yield return new WaitForSeconds(0.1f);
+
+        gravity.Shoot();
+        Assert.Less(0, gravity.shootdelay);
+    }
 }
