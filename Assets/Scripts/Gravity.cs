@@ -19,6 +19,8 @@ public class Gravity : MonoBehaviour
     public bool test_up = false;
     public int shootdelay = 0;
     public bool test = false;
+    public bool shoot_test = false;
+    
     Vector2 force;
     // Start is called before the first frame update
     public void Start()
@@ -53,10 +55,10 @@ public class Gravity : MonoBehaviour
         if(onGround()) {
             m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x / 2, m_Rigidbody.velocity.y);
         }
-        if(m_Rigidbody.velocity.x > 3f && shootdelay < 280 && onGround()) {
+        if((m_Rigidbody.velocity.x > 3f && shootdelay < 280 && onGround()) || test) {
             m_Rigidbody.velocity = new Vector2(3f, m_Rigidbody.velocity.y);
         }
-        if(m_Rigidbody.velocity.x < -3f && shootdelay < 280 && onGround()) {
+        if((m_Rigidbody.velocity.x < -3f && shootdelay < 280 && onGround()) || test) {
             m_Rigidbody.velocity = new Vector2(-3f, m_Rigidbody.velocity.y);
         }
         if((Input.GetKey(KeyCode.UpArrow) && onGround()) || test_up) {
@@ -64,7 +66,7 @@ public class Gravity : MonoBehaviour
             m_Rigidbody.AddForce(jump * transform.up, ForceMode2D.Impulse);
         }
 
-        if(Input.GetKey(KeyCode.Mouse0)) {
+        if(Input.GetKey(KeyCode.Mouse0) || shoot_test) {
             Shoot();
         }
 
