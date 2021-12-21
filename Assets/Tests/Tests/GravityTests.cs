@@ -109,9 +109,9 @@ public class GravityTests
         gravity = gameObject.GetComponent<Gravity>();
         gravity.Start();
         gravity.test = true;
+        gravity.shoot_test = true;
         yield return new WaitForSeconds(0.1f);
 
-        gravity.Shoot();
         Assert.Less(0, gravity.shootdelay);
     }
 }
