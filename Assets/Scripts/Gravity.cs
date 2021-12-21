@@ -20,6 +20,7 @@ public class Gravity : MonoBehaviour
     public int shootdelay = 0;
     public bool test = false;
     public bool shoot_test = false;
+    
     Vector2 force;
     // Start is called before the first frame update
     public void Start()
