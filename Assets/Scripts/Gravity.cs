@@ -7,7 +7,7 @@ public class Gravity : MonoBehaviour
 {
     Rigidbody2D m_Rigidbody;
 
-    GameObject player;
+    public GameObject player;
     public float m_Thrust = 70f;
     public float grav_force = 0.0f;
     public float jump;
@@ -25,7 +25,7 @@ public class Gravity : MonoBehaviour
     public void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
-        player = m_Rigidbody.gameObject;
+        // player = m_Rigidbody.gameObject;
     }
 
     // Update is called once per frame
@@ -35,29 +35,29 @@ public class Gravity : MonoBehaviour
         moving_right = false;
         moving_left = false;
 
-        if((Input.GetKey(KeyCode.RightArrow) && onGround()) || test_right) {
+        if((Input.GetKey(KeyCode.D) && onGround()) || test_right) {
             moving_right = true;
         }
 
-        if((Input.GetKey(KeyCode.LeftArrow) && onGround()) || test_left) {
+        if((Input.GetKey(KeyCode.A) && onGround()) || test_left) {
             moving_left = true;
         }
 
         if(moving_right) {
-            xVelocity += 3.0f;
+            xVelocity += 6.0f;
         }
 
         if(moving_left) {
-            xVelocity -= 3.0f;
+            xVelocity -= 6.0f;
         }
         m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x + xVelocity, m_Rigidbody.velocity.y - 0.25f);
         if(onGround()) {
             m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x / 2, m_Rigidbody.velocity.y);
         }
-        if((m_Rigidbody.velocity.x > 3f && shootdelay < 280 && onGround()) || test) {
+        if((m_Rigidbody.velocity.x > 6f && shootdelay < 280 && onGround()) || test) {
             m_Rigidbody.velocity = new Vector2(3f, m_Rigidbody.velocity.y);
         }
-        if((m_Rigidbody.velocity.x < -3f && shootdelay < 280 && onGround()) || test) {
+        if((m_Rigidbody.velocity.x < -6f && shootdelay < 280 && onGround()) || test) {
             m_Rigidbody.velocity = new Vector2(-3f, m_Rigidbody.velocity.y);
         }
         if((Input.GetKey(KeyCode.UpArrow) && onGround()) || test_up) {
@@ -94,7 +94,10 @@ public class Gravity : MonoBehaviour
     }
 
     public void Shoot() {
+        // Vector3 startPos = player.transform.position;
         Vector3 startPos = player.transform.position;
+        // startPos = new Vector3(startPos.x - 0.4f, startPos.y + 0.6f, startPos.z);
+        // Debug.DrawLine(startPos, startPos * 2, Color.blue, 100f);
         // Vector3 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // Vector3 endPos = -player.transform.up * 10;
         Vector3 endPos;
@@ -106,6 +109,7 @@ public class Gravity : MonoBehaviour
         endPos.z = 0;
         // Vector2 heading = endPos - startPos;
         // float distance = heading.magnitude;
+        // Debug.DrawLine(startPos, endPos, Color.black, 100f);
         Vector2 direction = (endPos - startPos).normalized;
         Vector2 inverse_direction = (startPos - endPos).normalized;
 
@@ -119,7 +123,7 @@ public class Gravity : MonoBehaviour
                 moving_left = false;
                 moving_right = false;
                 Debug.Log("shoot!");
-                m_Rigidbody.AddForce(inverse_direction * (30f - hit.distance), ForceMode2D.Impulse);
+                m_Rigidbody.AddForce(inverse_direction * (20f - hit.distance), ForceMode2D.Impulse);
             }
         }
     }
