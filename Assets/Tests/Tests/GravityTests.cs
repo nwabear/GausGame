@@ -108,6 +108,7 @@ public class GravityTests
             MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/player"));
         gravity = gameObject.GetComponent<Gravity>();
         gravity.Start();
+        gravity.on_ground++;
         gravity.test = true;
         gravity.shoot_test = true;
         yield return new WaitForSeconds(0.1f);
