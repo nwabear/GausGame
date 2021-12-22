@@ -107,6 +107,12 @@ public class Gravity : MonoBehaviour
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         gaus_gun.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -1f);
         gaus_gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
+        if(angle > 90 || angle < -90) {
+            gaus_gun.transform.localScale = new Vector3(-0.13f, -0.1f, 1f);
+        } else {
+            gaus_gun.transform.localScale = new Vector3(-0.13f, 0.1f, 1f);
+        }
     }
 
     public void Shoot() {
