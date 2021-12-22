@@ -102,7 +102,12 @@ public class Gravity : MonoBehaviour
     void RotateGun() {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 5.23f;
-        Vector3 objectPos = Camera.main.WorldToScreenPoint(gaus_gun.transform.position);
+        Vector3 objectPos;
+        if(!test) {
+            objectPos = Camera.main.WorldToScreenPoint(gaus_gun.transform.position);
+        } else {
+            objectPos = player.transform.up * 10;
+        }
         mousePos.x = mousePos.x - objectPos.x;
         mousePos.y = mousePos.y - objectPos.y;
 

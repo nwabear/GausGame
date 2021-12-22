@@ -106,7 +106,10 @@ public class GravityTests
     public IEnumerator ShootTest() {
         GameObject gameObject =
             MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/player"));
+        GameObject gameObject2 =
+            MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/GausGun"));
         gravity = gameObject.GetComponent<Gravity>();
+        gravity.gaus_gun = gameObject2;
         gravity.Start();
         gravity.on_ground++;
         gravity.test = true;
@@ -114,5 +117,21 @@ public class GravityTests
         yield return new WaitForSeconds(0.1f);
 
         Assert.Less(0, gravity.shootdelay);
+    }
+
+    [UnityTest]
+    public IEnumerator RotateGunTest() {
+        GameObject gameObject =
+            MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/player"));
+        GameObject gameObject2 =
+            MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/GausGun"));
+        gravity = gameObject.GetComponent<Gravity>();
+        gravity.gaus_gun = gameObject2;
+        gravity.test = true;
+        gravity.Start();
+
+        yield return new WaitForSeconds(0.1f);
+
+        Assert.LessOrEqual(0, gravity.gaus_gun.transform.rotation.x);
     }
 }
