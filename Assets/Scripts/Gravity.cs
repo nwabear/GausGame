@@ -54,15 +54,16 @@ public class Gravity : MonoBehaviour
         if(onGround()) {
             m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x / 2, m_Rigidbody.velocity.y);
         }
-        if((m_Rigidbody.velocity.x > 6f && shootdelay < 280 && onGround()) || test) {
+        if((m_Rigidbody.velocity.x > 6f && shootdelay < 180 && onGround()) || test) {
             m_Rigidbody.velocity = new Vector2(3f, m_Rigidbody.velocity.y);
         }
-        if((m_Rigidbody.velocity.x < -6f && shootdelay < 280 && onGround()) || test) {
+        if((m_Rigidbody.velocity.x < -6f && shootdelay < 180 && onGround()) || test) {
             m_Rigidbody.velocity = new Vector2(-3f, m_Rigidbody.velocity.y);
         }
-        if((Input.GetKey(KeyCode.UpArrow) && onGround()) || test_up) {
+        if((Input.GetKey(KeyCode.W) && onGround()) || test_up) {
             m_Rigidbody.velocity = new Vector2(xVelocity, 0.0f);
             m_Rigidbody.AddForce(jump * transform.up, ForceMode2D.Impulse);
+            shootdelay = 50;
         }
 
         if(Input.GetKey(KeyCode.Mouse0) || shoot_test) {
@@ -118,8 +119,8 @@ public class Gravity : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 10f);
         if(hit) {
             // Debug.Log(hit.transform.name + " was hit!");
-            if(shootdelay <= 0) {
-                shootdelay = 300;
+            if(shootdelay <= 0 && onGround()) {
+                shootdelay = 200;
                 moving_left = false;
                 moving_right = false;
                 Debug.Log("shoot!");
