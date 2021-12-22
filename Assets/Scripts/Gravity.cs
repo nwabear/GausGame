@@ -71,7 +71,9 @@ public class Gravity : MonoBehaviour
             Shoot();
         }
 
-        RotateGun();
+        if(gaus_gun.scene.IsValid()) {
+            RotateGun();
+        }
 
         shootdelay--;
     }
