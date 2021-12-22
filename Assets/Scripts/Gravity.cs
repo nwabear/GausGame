@@ -8,6 +8,7 @@ public class Gravity : MonoBehaviour
     Rigidbody2D m_Rigidbody;
 
     public GameObject player;
+    public GameObject gaus_gun;
     public float m_Thrust = 70f;
     public float grav_force = 0.0f;
     public float jump;
@@ -70,6 +71,8 @@ public class Gravity : MonoBehaviour
             Shoot();
         }
 
+        RotateGun();
+
         shootdelay--;
     }
 
@@ -92,6 +95,18 @@ public class Gravity : MonoBehaviour
         if(collision.gameObject.tag == "ground") {
             on_ground--;
         }
+    }
+
+    void RotateGun() {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 5.23f;
+        Vector3 objectPos = Camera.main.WorldToScreenPoint(gaus_gun.transform.position);
+        mousePos.x = mousePos.x - objectPos.x;
+        mousePos.y = mousePos.y - objectPos.y;
+
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+        gaus_gun.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -1f);
+        gaus_gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     public void Shoot() {
