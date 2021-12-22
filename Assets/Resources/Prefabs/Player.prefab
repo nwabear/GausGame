@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c16cd94aa258d4f82e79714324fab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 8172306151756901595}
   m_Thrust: 70
   grav_force: 9.8
   jump: 5
@@ -133,6 +134,8 @@ MonoBehaviour:
   test_left: 0
   test_up: 0
   shootdelay: 0
+  test: 0
+  shoot_test: 0
 --- !u!50 &8172306151756901412
 Rigidbody2D:
   serializedVersion: 4
