@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8172306151756901595}
+  gaus_gun: {fileID: 7675309828721455104, guid: bdb7f72cc821a6144a83f38dae80307c, type: 3}
   m_Thrust: 70
   grav_force: 9.8
   jump: 5
