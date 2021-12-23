@@ -81,9 +81,7 @@ public class Gravity : MonoBehaviour
         }
 
         shootdelay--;
-    }
 
-    public void Update() {
         if(curFrame > -2 && frames.scene.IsValid()) {
             updateFrame();
         }
@@ -94,15 +92,15 @@ public class Gravity : MonoBehaviour
         Debug.Log(children.Length);
         if(curFrame > -1) {
             // children[curFrame].gameObject.SetActive(false);
-            children[curFrame / 2].enabled = false;
+            children[curFrame / 6].enabled = false;
             // children[curFrame].position = new Vector3(frames.transform.position.x, frames.transform.position.y - 20, -2);
         }
         curFrame++;
-        if(curFrame < 48) {
+        if(curFrame <= 138) {
             // Debug.Log(curFrame);
             // children[curFrame].gameObject.SetActive(true);
             // children[curFrame].position = new Vector3(frames.transform.position.x, frames.transform.position.y, -2);
-            children[curFrame / 2].enabled = true;
+            children[curFrame / 6].enabled = true;
         } else {
             curFrame = -2;
         }
