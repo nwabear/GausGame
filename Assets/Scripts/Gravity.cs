@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class Gravity : MonoBehaviour
@@ -21,6 +22,10 @@ public class Gravity : MonoBehaviour
     public int shootdelay = 0;
     public bool test = false;
     public bool shoot_test = false;
+
+    public GameObject frames;
+    public int curFrame = -1;
+    public Vector3 hitPos = new Vector3(0, 0, 0);
     Vector2 force;
     // Start is called before the first frame update
     public void Start()
@@ -78,6 +83,31 @@ public class Gravity : MonoBehaviour
         shootdelay--;
     }
 
+    public void Update() {
+        if(curFrame > -2 && frames.scene.IsValid()) {
+            updateFrame();
+        }
+    }
+
+    public void updateFrame() {
+        SpriteRenderer[] children = frames.GetComponentsInChildren<SpriteRenderer>();
+        Debug.Log(children.Length);
+        if(curFrame > -1) {
+            // children[curFrame].gameObject.SetActive(false);
+            children[curFrame / 2].enabled = false;
+            // children[curFrame].position = new Vector3(frames.transform.position.x, frames.transform.position.y - 20, -2);
+        }
+        curFrame++;
+        if(curFrame < 48) {
+            // Debug.Log(curFrame);
+            // children[curFrame].gameObject.SetActive(true);
+            // children[curFrame].position = new Vector3(frames.transform.position.x, frames.transform.position.y, -2);
+            children[curFrame / 2].enabled = true;
+        } else {
+            curFrame = -2;
+        }
+    }
+
     public bool onGround() {
         return on_ground > 0;
     }
@@ -131,7 +161,7 @@ public class Gravity : MonoBehaviour
         // Vector3 endPos = -player.transform.up * 10;
         Vector3 endPos;
         if(!test) {
-            endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);  
+            endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         } else {
             endPos = player.transform.up * 10;
         }
@@ -153,6 +183,10 @@ public class Gravity : MonoBehaviour
                 moving_right = false;
                 Debug.Log("shoot!");
                 m_Rigidbody.AddForce(inverse_direction * (20f - hit.distance), ForceMode2D.Impulse);
+                if(frames.scene.IsValid()) {
+                    frames.transform.position = new Vector3(hit.point.x, hit.point.y + 1);
+                }
+                curFrame = -1;
             }
         }
     }
