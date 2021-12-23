@@ -151,8 +151,13 @@ public class Gravity : MonoBehaviour
                 shootdelay = 200;
                 moving_left = false;
                 moving_right = false;
-                Debug.Log("shoot!");
-                m_Rigidbody.AddForce(inverse_direction * (20f - hit.distance), ForceMode2D.Impulse);
+                Debug.Log("shoot! : " + hit.distance);
+                float power = 0f;
+                if(hit.distance < 4) {
+                    power = 20f - (hit.distance * 2);
+                }
+                // m_Rigidbody.AddForce(inverse_direction * (20f - hit.distance), ForceMode2D.Impulse);
+                m_Rigidbody.AddForce(inverse_direction * (power), ForceMode2D.Impulse);
             }
         }
     }
