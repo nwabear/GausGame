@@ -137,6 +137,9 @@ MonoBehaviour:
   shootdelay: 0
   test: 0
   shoot_test: 0
+  frames: {fileID: 4949364572680311336, guid: d229f72bb14c59745b743e1d376fe16b, type: 3}
+  curFrame: -1
+  hitPos: {x: 0, y: 0, z: 0}
 --- !u!50 &8172306151756901412
 Rigidbody2D:
   serializedVersion: 4

@@ -26,30 +26,6 @@ public class Gravity : MonoBehaviour
     public GameObject frames;
     public int curFrame = -1;
     public Vector3 hitPos = new Vector3(0, 0, 0);
-    // public GameObject frame00; 
-    // public GameObject frame01;
-    // public GameObject frame02;
-    // public GameObject frame03;
-    // public GameObject frame04;
-    // public GameObject frame05;
-    // public GameObject frame06;
-    // public GameObject frame07;
-    // public GameObject frame08;
-    // public GameObject frame09;
-    // public GameObject frame10;
-    // public GameObject frame11;
-    // public GameObject frame12;
-    // public GameObject frame13;
-    // public GameObject frame14;
-    // public GameObject frame15;
-    // public GameObject frame16;
-    // public GameObject frame17;
-    // public GameObject frame18;
-    // public GameObject frame19;
-    // public GameObject frame20;
-    // public GameObject frame21;
-    // public GameObject frame22;
-    // public GameObject frame23;
     Vector2 force;
     // Start is called before the first frame update
     public void Start()
@@ -108,7 +84,7 @@ public class Gravity : MonoBehaviour
     }
 
     public void Update() {
-        if(curFrame > -2) {
+        if(curFrame > -2 && frames.scene.IsValid()) {
             updateFrame();
         }
     }
@@ -207,7 +183,9 @@ public class Gravity : MonoBehaviour
                 moving_right = false;
                 Debug.Log("shoot!");
                 m_Rigidbody.AddForce(inverse_direction * (20f - hit.distance), ForceMode2D.Impulse);
-                frames.transform.position = new Vector3(hit.point.x, hit.point.y + 1);
+                if(frames.scene.IsValid()) {
+                    frames.transform.position = new Vector3(hit.point.x, hit.point.y + 1);
+                }
                 curFrame = -1;
             }
         }
