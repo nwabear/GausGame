@@ -80,7 +80,10 @@ public class Gravity : MonoBehaviour
             RotateGun();
         }
 
-        shootdelay--;
+        if(shootdelay > -50) {
+            shootdelay--;
+            shootdelay--;
+        }
 
         if(curFrame > -2 && frames.scene.IsValid()) {
             updateFrame();
