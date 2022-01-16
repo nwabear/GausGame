@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - slope
+  - power_ball
   layers:
   - Default
   - TransparentFX
