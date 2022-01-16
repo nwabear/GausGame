@@ -22,6 +22,7 @@ public class Gravity : MonoBehaviour
     public int shootdelay = 0;
     public bool test = false;
     public bool shoot_test = false;
+    public bool can_shoot = false;
 
     public GameObject frames;
     public int curFrame = -1;
@@ -57,7 +58,7 @@ public class Gravity : MonoBehaviour
             xVelocity -= 6.0f;
         }
         m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x + xVelocity, m_Rigidbody.velocity.y - 0.25f);
-        if(onGround()) {
+        if(onGround() && !can_shoot) {
             m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x / 2, m_Rigidbody.velocity.y);
         }
         if((m_Rigidbody.velocity.x > 6f && shootdelay < 180 && onGround()) || test) {
@@ -72,8 +73,9 @@ public class Gravity : MonoBehaviour
             shootdelay = 50;
         }
 
-        if(Input.GetKey(KeyCode.Mouse0) || shoot_test) {
+        if((Input.GetKey(KeyCode.Mouse0) && onGround()) || shoot_test) {
             Shoot();
+            can_shoot = false;
         }
 
         if(gaus_gun.scene.IsValid()) {
@@ -110,13 +112,20 @@ public class Gravity : MonoBehaviour
     }
 
     public bool onGround() {
-        return on_ground > 0;
+        return on_ground > 0 || can_shoot;
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "ground") {
             on_ground++;
+            if(can_shoot) {
+                can_shoot = false;
+            }
         }
+
+        // if(collision.gameObject.tag == "power_ball") {
+        //     shoot_test = true;
+        // }
 
         if(collision.gameObject.tag == "slope") {
             moving_left = false;
